@@ -1,5 +1,5 @@
 import telebot
-from config import TOKEN, admin_id
+from constants import TOKEN, admin_id
 from telebot import types
 
 bot = telebot.TeleBot(TOKEN)
