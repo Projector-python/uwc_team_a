@@ -1,115 +1,85 @@
 import sqlite3
-
-# connection = sqlite3.connect('uwc_database.db')
-
-# connection.execute("""
-#     CREATE TABLE admins (
-#         admin_id INT NOT NULL,
-#         name VARCHAR(50) NOT NULL
-#     );
-# """)
+from constants import database
 
 
-# connection.execute("""
-#     CREATE TABLE all_users (
-#         user_id INT NOT NULL
-#     );
-# """)
+class DataBase ():
+    def __init__(self, connection):
+        self.connection = sqlite3.connect(connection, check_same_thread=False)
 
-# cursor = connection.cursor()
+    def create_table_users(self):
+        self.connection.execute("""
+            CREATE TABLE users (
+                id INTEGER PRIMARY KEY,
+                telegram_id INT NOT NULL,
+                name VARCHAR(50) NOT NULL,
+                is_admin BOOL
+            );
+        """)
 
-# connection.commit()
-# connection.close()
+        self.connection.commit()
 
+    def add_admin_to_db(self, *args):
+        self.connection.execute("""
+            INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
+        """, args)
+        self.connection.commit()
 
-def add_admin_to_db(*args):
-    connection = sqlite3.connect('uwc_database.db')
-    connection.execute("""
-        INSERT INTO admins VALUES (?, ?)
-    """, args)
-    connection.commit()
-    connection.close()
+    def show_admin_from_db(self):
+        cursor = self.connection.cursor()
 
+        cursor.execute("SELECT * FROM users WHERE is_admin == True")
+        admin_list = cursor.fetchall()
 
-def remove_admin_from_db(admin_id: int):
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
-    
-    cursor.execute(f"DELETE FROM admins WHERE admin_id == {admin_id}")
-    
-    connection.commit()
-    connection.close()
+        if len(admin_list) == 0:
+            print(cursor.fetchall())
+        else:
+            for admin in admin_list:
+                print(admin)
 
+    def remove_admin_from_db(self, admin_id: int):
+        cursor = self.connection.cursor()
 
-def show_admin_from_db():
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
-    
-    cursor.execute("SELECT * FROM admins")
-    admin_list = cursor.fetchall()
+        cursor.execute(f"DELETE FROM users WHERE telegram_id == {admin_id}")
 
-    if len(admin_list) == 0:
-        print(cursor.fetchall())
-    else:    
-        for admin in admin_list:
-            print(admin)
-    
-    connection.close()
+        self.connection.commit()
 
+    def is_admin(self, admin_id: int) -> bool:
+        cursor = self.connection.cursor()
 
-def is_admin(admin_id: int) -> bool:
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
+        cursor.execute("SELECT telegram_id FROM users")
+        temp = cursor.fetchall()
 
-    cursor.execute("SELECT admin_id FROM admins")
-    temp = cursor.fetchall()
+        admin_list = set([x[0] for x in temp])
 
-    admin_list = set([x[0] for x in temp])
+        if admin_id in admin_list:
+            return True
+        else:
+            return False
 
-    if admin_id in admin_list:
-        return True
+    def add_user_id(self, *args, **kwargs):
+        pass
 
+    def get_telegram_id_list(self) -> list:
+        cursor = self.connection.cursor()
 
-def add_user_id(user_id: int):
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
+        cursor.execute("SELECT telegram_id FROM users")
+        temp = cursor.fetchall()
 
-    cursor.execute("SELECT user_id FROM all_users")
-    temp = cursor.fetchall()
+        user_list = set([x[0] for x in temp])
 
-    user_list = set([x[0] for x in temp])
+        return user_list
 
-    if user_id not in user_list:
-        connection.execute(f"INSERT INTO all_users VALUES ({user_id})")
-    
-    connection.commit()
-    connection.close()
+    def show_all_users(self):
+        cursor = self.connection.cursor()
 
+        cursor.execute("SELECT * FROM users")
+        user_list = cursor.fetchall()
 
-def get_user_id_list() -> list:
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT user_id FROM all_users")
-    temp = cursor.fetchall()
-
-    user_list = set([x[0] for x in temp])
-
-    connection.close()
-    return user_list
+        if len(user_list) == 0:
+            print(cursor.fetchall())
+        else:
+            for user in user_list:
+                print(user)
 
 
-def show_all_users_id():
-    connection = sqlite3.connect('uwc_database.db')
-    cursor = connection.cursor()
-    
-    cursor.execute("SELECT * FROM all_users")
-    user_list = cursor.fetchall()
-
-    if len(user_list) == 0:
-        print(cursor.fetchall())
-    else:
-        for user in user_list:
-            print(user)
-
-    connection.close()
+db = DataBase('uwc_database.db')
