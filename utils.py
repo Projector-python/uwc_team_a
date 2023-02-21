@@ -1,13 +1,16 @@
-import telebot
-import constants
-from constants import bot
 from telebot import types
-from telebot.types import Message
 
 
-def build_markup(button_list: tuple):
-    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True,
-                                       resize_keyboard=True, row_width=2)
+def build_markup(button_list: tuple[str],
+                 one_time_keyboard=True,
+                 resize_keyboard=True,
+                 row_width=2) -> types.ReplyKeyboardMarkup:
+
+    markup = types.ReplyKeyboardMarkup(
+        one_time_keyboard=one_time_keyboard,
+        resize_keyboard=resize_keyboard,
+        row_width=row_width
+    )
 
     for button in button_list:
         markup.add(button)

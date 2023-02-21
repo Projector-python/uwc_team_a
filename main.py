@@ -1,9 +1,7 @@
-import telebot
 import constants
 import admin
 import user
 from constants import bot
-from telebot import types
 from telebot.types import Message
 from utils import build_markup
 from db import db
@@ -13,7 +11,7 @@ from db import db
 def send_welcome(message: Message):
     if message.text == '/start':
         mess = f'Hello, <b>{message.from_user.first_name}</b>'
-        markup = build_markup(constants.user_panel_buttons)
+        markup = build_markup(constants.USER_PANEL_BUTTONS)
 
         msg = bot.send_message(message.chat.id, mess,
                                parse_mode='html', reply_markup=markup)
@@ -26,7 +24,7 @@ def send_welcome(message: Message):
 @bot.message_handler(commands=['admin'])
 def admin_panel(message: Message):
     if db.is_admin(message.from_user.id):
-        markup = build_markup(constants.admin_panel_buttons)
+        markup = build_markup(constants.ADMIN_PANEL_BUTTONS)
 
         msg = bot.send_message(
             message.chat.id, "Hello! Welcome to admin panel!",

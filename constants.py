@@ -4,22 +4,34 @@ TOKEN = '6172665923:AAFRPHtt2EIW0LLQYpGhk5l3F6bN3-2ZJAs'
 
 bot = telebot.TeleBot(TOKEN)
 
-database = 'uwc_database.db'
+DATABASE = 'uwc_database.db'
 
-admin_panel_buttons = (
-    'Add admin',
-    'Remove admin',
-    'Send message to users',
-    'UWC Members'
+ADD_ADMIN = 'Add admin'
+REMOVE_ADMIN = 'Remove admin'
+SEND_MESSAGE = 'Send message to users'
+UWC_MEMBERS = 'UWC Members'
+
+REGISTRATION = 'Registration'
+UPDATE_PROFILE = 'Update profile'
+UWC_SMM = 'UWC Social Media'
+
+UPDATE_DATA = 'Update data'
+CUSTOM_MESSAGE = 'Custom message'
+
+ADMIN_PANEL_BUTTONS = (
+    ADD_ADMIN,
+    REMOVE_ADMIN,
+    SEND_MESSAGE,
+    UWC_MEMBERS
 )
 
-user_panel_buttons = (
-    'Registration',
-    'Update profile',
-    'UWC Social Media'
+USER_PANEL_BUTTONS = (
+    REGISTRATION,
+    UPDATE_PROFILE,
+    UWC_SMM
 )
 
-send_message_buttons = (
-    'Update data',
-    'Custom message'
+SEND_MESSAGE_BUTTONS = (
+    UPDATE_DATA,
+    CUSTOM_MESSAGE
 )

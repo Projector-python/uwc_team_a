@@ -1,19 +1,18 @@
-import telebot
+import constants
 from constants import bot
 from telebot import types
 from telebot.types import Message
 from utils import build_markup
-from db import db
 
 
 def user_panel_processing(message):
-    if message.text == 'Registration':
+    if message.text == constants.REGISTRATION:
         pass    # Victor
 
-    elif message.text == 'Update profile':
+    elif message.text == constants.UPDATE_PROFILE:
         pass
 
-    elif message.text == 'UWC Social Media':
+    elif message.text == constants.UWC_SMM:
         markup = types.InlineKeyboardMarkup(row_width=2)
 
         social_buttons = [
