@@ -1,6 +1,5 @@
 import constants
 from constants import bot
-from telebot.types import Message
 from utils import build_markup
 from db import db
 
