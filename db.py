@@ -3,7 +3,7 @@ from constants import database
 
 
 class DataBase ():
-    def __init__(self, connection):
+    def __init__(self, filename: str = 'uwc_database.db'):
         self.connection = sqlite3.connect(connection, check_same_thread=False)
 
     def create_table_users(self):
