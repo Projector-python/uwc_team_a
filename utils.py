@@ -1,18 +1,30 @@
 from telebot import types
 
 
-def build_markup(button_list: tuple[str],
-                 one_time_keyboard=True,
-                 resize_keyboard=True,
-                 row_width=2) -> types.ReplyKeyboardMarkup:
+def build_reply_markup(
+        button_list: tuple[str]) -> types.ReplyKeyboardMarkup:
 
     markup = types.ReplyKeyboardMarkup(
-        one_time_keyboard=one_time_keyboard,
-        resize_keyboard=resize_keyboard,
-        row_width=row_width
+        one_time_keyboard=True,
+        resize_keyboard=True,
+        row_width=2
     )
 
     for button in button_list:
         markup.add(button)
+
+    return markup
+
+
+def build_inline_markup(
+        button_list: dict[str: 'url']) -> types.InlineKeyboardButton:
+
+    markup = types.InlineKeyboardMarkup(
+        row_width=2
+    )
+
+    for button, url in button_list.items():
+        markup.add(
+            types.InlineKeyboardButton(button, url=url))
 
     return markup

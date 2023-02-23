@@ -35,3 +35,10 @@ SEND_MESSAGE_BUTTONS = (
     UPDATE_DATA,
     CUSTOM_MESSAGE
 )
+
+SOCIAL_BUTTONS = {
+    'Instagram': 'https://www.instagram.com/uwcukraine',
+    'Facebook': 'https://www.facebook.com/UWCUkraine',
+    'Website': 'https://www.ukraine.uwc.org',
+    'LinkedIn': 'https://www.linkedin.com/company/uwcukraine'
+}

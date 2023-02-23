@@ -17,43 +17,34 @@ class DataBase ():
 
         self.connection.commit()
 
-    def add_admin_to_db(self, *args):
+    def add_admin_to_db(self, telegram_id: int, name: str):
         self.connection.execute("""
             INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
-        """, args)
+        """, (telegram_id, name))
         self.connection.commit()
-
-    def show_admin_from_db(self):
-        cursor = self.connection.cursor()
-
-        cursor.execute("SELECT * FROM users WHERE is_admin is True")
-        admin_list = cursor.fetchall()
-
-        if len(admin_list) == 0:
-            print(cursor.fetchall())
-        else:
-            for admin in admin_list:
-                print(admin)
 
     def remove_admin_from_db(self, telegram_id: int):
         cursor = self.connection.cursor()
 
-        cursor.execute("DELETE FROM users WHERE telegram_id = ?",
-                       (telegram_id,))
+        cursor.execute("""
+            DELETE FROM users WHERE telegram_id = ?
+            """, (telegram_id,))
 
         self.connection.commit()
+
+    def show_admin_from_db(self):
+        pass
 
     def is_admin(self, telegram_id: int) -> bool:
         cursor = self.connection.cursor()
 
-        cursor.execute("SELECT telegram_id FROM users WHERE is_admin is True")
+        cursor.execute(f"""
+            SELECT EXISTS(SELECT * FROM users 
+            WHERE is_admin = true 
+            AND telegram_id = {telegram_id})
+            """)
 
-        admin_list = set([x[0] for x in cursor.fetchall()])
-
-        if telegram_id in admin_list:
-            return True
-        else:
-            return False
+        return cursor.fetchone()
 
     def add_user(self, *args, **kwargs):
         pass
@@ -69,16 +60,7 @@ class DataBase ():
         return user_list
 
     def show_all_users(self):
-        cursor = self.connection.cursor()
-
-        cursor.execute("SELECT * FROM users")
-        user_list = cursor.fetchall()
-
-        if len(user_list) == 0:
-            print(cursor.fetchall())
-        else:
-            for user in user_list:
-                print(user)
+        pass
 
 
 db = DataBase()
