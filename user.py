@@ -1,6 +1,5 @@
 import constants
 from constants import bot
-from telebot import types
 from utils import build_inline_markup
 
 

@@ -39,8 +39,8 @@ class DataBase ():
         cursor = self.connection.cursor()
 
         cursor.execute(f"""
-            SELECT EXISTS(SELECT * FROM users 
-            WHERE is_admin = true 
+            SELECT EXISTS(SELECT * FROM users
+            WHERE is_admin = true
             AND telegram_id = {telegram_id})
             """)
 

@@ -27,7 +27,7 @@ def admin_send_message(message):
     if message.text == constants.UPDATE_DATA:
         for user in db.get_telegram_id_list():
             bot.send_message(user, 'Please update your profile')
-        
+
         bot.reply_to(message, 'Done')
 
     elif message.text == constants.CUSTOM_MESSAGE:
@@ -40,5 +40,5 @@ def admin_send_message(message):
 def admin_send_custom_message_processing(message):
     for user in db.get_telegram_id_list():
         bot.send_message(user, message.text)
-        
+
     bot.reply_to(message, 'Done')
