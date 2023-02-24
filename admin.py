@@ -6,10 +6,16 @@ from db import db
 
 def admin_panel_processing(message):
     if message.text == constants.ADD_ADMIN:
-        pass    # Eugene
+        msg = bot.send_message(
+            message.chat.id, "Введіть ім'я нового адміна:"
+        )
+        bot.register_next_step_handler(msg, get_admin_id)
 
     elif message.text == constants.REMOVE_ADMIN:
-        pass    # Eugene
+        msg = bot.send_message(
+            message.chat.id, "Введіть ID адміна, якого бажаєте видалити:"
+        )
+        bot.register_next_step_handler(msg, del_admin_from_db)
 
     elif message.text == constants.SEND_MESSAGE:
         markup = build_reply_markup(constants.SEND_MESSAGE_BUTTONS)
@@ -21,6 +27,24 @@ def admin_panel_processing(message):
 
     elif message.text == constants.UWC_MEMBERS:
         pass
+
+
+def get_admin_id(message):
+    name = message.text
+    msg = bot.send_message(message.chat.id, "Введіть ID нового адміна:")
+    bot.register_next_step_handler(msg, add_admin_to_db, name=name)
+
+
+def add_admin_to_db(message, name: str):
+    telegram_id = message.text
+    db.add_admin_to_db(telegram_id, name)
+    bot.send_message(message.chat.id, "Адміна додано")
+
+
+def del_admin_from_db(message):
+    admin_id = message.text
+    db.remove_admin_from_db(admin_id)
+    bot.send_message(message.chat.id, "Адміна видалено")
 
 
 def admin_send_message(message):
