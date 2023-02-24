@@ -1,48 +1,41 @@
-import telebot
-from constants import TOKEN, admin_id
-from telebot import types
+import constants
+import admin
+import user
+from constants import bot
 from telebot.types import Message
-
-bot = telebot.TeleBot(TOKEN)
+from utils import build_reply_markup
+from db import db
 
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message: Message):
     if message.text == '/start':
-        mess = f'Hello, <b>{message.from_user.first_name} \
-            {message.from_user.last_name}</b>'
-        bot.send_message(message.chat.id, mess, parse_mode='html')
+        mess = f'Hello, <b>{message.from_user.first_name}</b>'
+        markup = build_reply_markup(constants.USER_PANEL_BUTTONS)
+
+        msg = bot.send_message(message.chat.id, mess,
+                               parse_mode='html', reply_markup=markup)
+        bot.register_next_step_handler(msg, user.user_panel_processing)
+
     elif message.text == '/help':
         bot.send_message(message.chat.id, "What bot can do?")
 
 
 @bot.message_handler(commands=['admin'])
 def admin_panel(message: Message):
-    if message.from_user.id in admin_id.values():
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    if db.is_admin(message.from_user.id):
+        markup = build_reply_markup(constants.ADMIN_PANEL_BUTTONS)
 
-        admin_panel_buttons = [
-            types.KeyboardButton('Add admin'),
-            types.KeyboardButton('Remove admin'),
-            types.KeyboardButton('Send message to users'),
-            types.KeyboardButton('UWC Members')
-        ]
-
-        markup.add(*admin_panel_buttons)
-        bot.send_message(
+        msg = bot.send_message(
             message.chat.id, "Hello! Welcome to admin panel!",
             reply_markup=markup)
+        bot.register_next_step_handler(msg, admin.admin_panel_processing)
 
 
 @bot.message_handler()
 def message_reply(message: Message):
-    if message.text.capitalize() == 'Hello':
-        bot.send_message(message.chat.id, 'Hello')
-    elif message.text.upper() == 'ID':
+    if message.text.upper() == 'ID':
         bot.send_message(message.chat.id, message.from_user.id)
-
-    if message.from_user.id in admin_id.values():
-        pass
 
 
 bot.infinity_polling()
