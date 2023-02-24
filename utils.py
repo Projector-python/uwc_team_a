@@ -17,7 +17,7 @@ def build_reply_markup(
 
 
 def build_inline_markup(
-        button_list: dict[str: 'url']) -> types.InlineKeyboardButton:
+        button_list: dict[str, str]) -> types.InlineKeyboardButton:
 
     markup = types.InlineKeyboardMarkup(
         row_width=2
