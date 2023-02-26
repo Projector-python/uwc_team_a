@@ -1,11 +1,14 @@
 import constants
-from constants import bot
+from constants import bot, Student
 from utils import build_inline_markup
-
+from user_registration import procces_name
 
 def user_panel_processing(message):
     if message.text == constants.REGISTRATION:
-        pass    # Victor
+        student = Student()
+        msg = bot.reply_to(message, "Привіт, ми почали реєстрацію. Напиши своє імʼя:")
+        bot.register_next_step_handler(msg, procces_name, student = student)
+
 
     elif message.text == constants.UPDATE_PROFILE:
         pass
