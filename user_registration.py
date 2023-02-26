@@ -1,5 +1,5 @@
-from constants import Student
-from constants import bot
+from constants import Student, bot
+
 
 def procces_name(message, student: Student): 
     student.name = message.text

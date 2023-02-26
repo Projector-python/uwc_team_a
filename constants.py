@@ -18,6 +18,14 @@ UWC_SMM = 'UWC Social Media'
 UPDATE_DATA = 'Update data'
 CUSTOM_MESSAGE = 'Custom message'
 
+YES = "Так"
+NO = "Ніт"
+
+YES_NO = (
+    YES,
+    NO
+)
+
 ADMIN_PANEL_BUTTONS = (
     ADD_ADMIN,
     REMOVE_ADMIN,
@@ -101,3 +109,18 @@ class Student:
         self.work = work
         self.interests = interests
         self.date_updated = date_updated
+        
+        @property
+        def overview(self):
+            return f"""
+            Мене звати {self.name} {self.family_name}
+            Коледж  {self.college.name}, {self.year_start}-{self.year_finish}
+            Пошта  {self.email}
+            Соц-мережа  {self.social_network}, найркаще комунікувати {self.best_communication}
+            Живу в {self.live_place}
+            Університет {self.university}
+            Робота {self.work}
+            Інтереси {self.interests}
+            Востаннє оновлюваллись дані {self.date_updated}
+            """
+
