@@ -1,4 +1,4 @@
-from constants import Student
+from models import Student, College
 from constants import bot
 
 def procces_name(message, student: Student): 
@@ -118,7 +118,7 @@ def save_file(st: Student):
             st.telegram_id,
             st.name,
             st.family_name,
-            st.college,
+            st.college.name,
             st.year_start,
             st.year_finish,
             st.mail,
