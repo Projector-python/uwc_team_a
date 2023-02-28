@@ -1,5 +1,6 @@
 import constants
-from constants import bot, Student
+from constants import bot 
+from models import Student
 from utils import build_inline_markup
 from user_registration import procces_name
 
