@@ -3,7 +3,6 @@ from constants import bot
 from models import Student
 from utils import build_reply_markup
 
-
 def procces_if_update(message, student: Student):
     if (message.text == constants.NO):
         # here we should update date of update to today's and do nothing
@@ -13,7 +12,7 @@ def procces_if_update(message, student: Student):
         msg = bot.send_message(
             message.chat.id,
             """Ми пройдемось по кожному з параметрів та змінимо їх за необхідності.\
-                Натиснііть кнопку щоб почати :)""",
+            Натиснііть кнопку щоб почати :)""",
             reply_markup=markup
         )
         bot.register_next_step_handler(msg, ask_change_mail, student)
