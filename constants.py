@@ -18,6 +18,13 @@ UWC_SMM = 'UWC Social Media'
 UPDATE_DATA = 'Update data'
 CUSTOM_MESSAGE = 'Custom message'
 
+YES = "Так"
+NO = "Ніт"
+YES_NO = (
+     YES,
+     NO
+ )
+
 ADMIN_PANEL_BUTTONS = (
     ADD_ADMIN,
     REMOVE_ADMIN,
