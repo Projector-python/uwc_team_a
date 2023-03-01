@@ -12,7 +12,8 @@ def procces_if_update(message, student: Student):
         markup = build_reply_markup(("Далі"))
         msg = bot.send_message(
             message.chat.id,
-            """Ми пройдемось по кожному з параметрів та змінимо їх за необхідності.\
+            """Ми пройдемось по кожному з параметрів \
+            та змінимо їх за необхідності.\
             Натиснііть кнопку щоб почати :)""",
             reply_markup=markup
         )
