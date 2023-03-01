@@ -1,22 +1,22 @@
 class Student:
-    def __init___(self, 
-                    telegram_id: int,
-                    name: str, 
-                    family_name: str,
-                    college: str,
-                    year_start: int,
-                    year_finish: int,
-                    mail: str,
-                    social_network: str,
-                    best_commumication: str,
-                    agree_share_pers_info: bool,
-                    live_place: str,
-                    university: str,
-                    work: str,
-                    interests: str,
-                    date_updated):
+    def __init___(self,
+                  telegram_id: int,
+                  name: str,
+                  family_name: str,
+                  college: str,
+                  year_start: int,
+                  year_finish: int,
+                  mail: str,
+                  social_network: str,
+                  best_commumication: str,
+                  agree_share_pers_info: bool,
+                  live_place: str,
+                  university: str,
+                  work: str,
+                  interests: str,
+                  date_updated):
         self.telegram_id = telegram_id
-        self.name = name 
+        self.name = name
         self.family_name = family_name
         self.college = college
         self.year_start = year_start
@@ -30,7 +30,7 @@ class Student:
         self.work = work
         self.interests = interests
         self.date_updated = date_updated
-        
+
         @property
         def overview(self):
             return f"""
@@ -44,4 +44,3 @@ class Student:
             Інтереси {self.interests}
             Востаннє оновлюваллись дані {self.date_updated}
             """
-
