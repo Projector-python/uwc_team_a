@@ -3,6 +3,7 @@ from constants import bot
 from models import Student
 from utils import build_reply_markup
 
+
 def procces_if_update(message, student: Student):
     if (message.text == constants.NO):
         # here we should update date of update to today's and do nothing
@@ -32,7 +33,7 @@ def procces_if_change_mail(message, student: Student):
     if message.text == constants.YES:
         msg = bot.send_message(
             message.chat.id,
-            f"Введіть нову електронну пошту:"
+            "Введіть нову електронну пошту:"
         )
         bot.register_next_step_handler(
             msg, procces_change_mail, student=student
@@ -59,7 +60,7 @@ def ask_change_live_place(message, student: Student):
 def procces_if_change_live_place(message, student: Student):
     if message.text == constants.YES:
         msg = bot.send_message(message.chat.id,
-                               f"Введіть нове місце проживання:")
+                               "Введіть нове місце проживання:")
         bot.register_next_step_handler(
             msg, procces_change_live_place, student=student)
     elif message.text == constants.NO:
@@ -85,7 +86,7 @@ def procces_if_change_work(message, student: Student):
     if message.text == constants.YES:
         msg = bot.send_message(
             message.chat.id,
-            f"Введіть місце роботи:",
+            "Введіть місце роботи:",
         )
         bot.register_next_step_handler(
             msg, procces_change_work, student=student,
@@ -115,7 +116,7 @@ def procces_if_change_university(message, student: Student):
     if message.text == constants.YES:
         msg = bot.send_message(
             message.chat.id,
-            f"Введіть університет:"
+            "Введіть університет:"
         )
         bot.register_next_step_handler(
             msg, procces_change_university, student=student
