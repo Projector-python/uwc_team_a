@@ -1,14 +1,9 @@
-class College:
-    def __init__(self, name, region) -> None:
-        self.name = name
-        self.region = region
-        
 class Student:
     def __init___(self, 
                     telegram_id: int,
                     name: str, 
                     family_name: str,
-                    college: College,
+                    college: str,
                     year_start: int,
                     year_finish: int,
                     mail: str,
@@ -40,7 +35,7 @@ class Student:
         def overview(self):
             return f"""
             Мене звати {self.name} {self.family_name}
-            Коледж  {self.college.name}, {self.year_start}-{self.year_finish}
+            Коледж  {self.college}, {self.year_start}-{self.year_finish}
             Пошта  {self.email}
             Соц-мережа  {self.social_network}, найркаще комунікувати {self.best_communication}
             Живу в {self.live_place}

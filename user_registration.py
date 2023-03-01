@@ -1,4 +1,4 @@
-from models import Student, College
+from models import Student
 from constants import bot
 
 def procces_name(message, student: Student): 
@@ -107,28 +107,9 @@ def procces_interests (message, student: Student):
     student.interests = message.text
     bot.send_message(message.chat.id, "Дякую за реєстрацію!")
     student.telegram_id = message.from_user.id
-    #necessary to add date of saving it into datavase as Students.date_updated
-    save_file(student)
+    #necessary to add date of saving it into database as Students.date_updated
+    save_to_bd(student)
 
-def save_file(st: Student):
-    import csv
-    with open("users.csv", mode = "a") as file:
-        writer = csv.writer (file)
-        writer.writerow( [
-            st.telegram_id,
-            st.name,
-            st.family_name,
-            st.college.name,
-            st.year_start,
-            st.year_finish,
-            st.mail,
-            st.social_network,
-            st.best_commumication,
-            st.agree_share_pers_info,
-            st.live_place,
-            st.university,
-            st.work,
-            st.interests
-        ]
-        )
-    
+def save_to_bd(st: Student):
+    #Oleksandr
+    pass

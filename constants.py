@@ -43,24 +43,3 @@ SOCIAL_BUTTONS = {
     'Website': 'https://www.ukraine.uwc.org',
     'LinkedIn': 'https://www.linkedin.com/company/uwcukraine'
 }
-
-colleges = [ 
-            College("UWC Atlantic", "Europe"),
-            College("UWC Dilijan", "Europe"),
-            College("Li Po Chun UWC of Hong Kong", "Asia"),
-            College("UWC Red Cross Nordic", "Europe"),
-            College("UWC Maastricht", "Europe"),
-            College("Pearson College UWC", "America"),
-            College("UWC Robert Bosch College", "Europe"),
-            College("UWC ISAK Japan", "Asia"),
-            College("UWC Costa Rica", "America"),
-            College("UWC Adriatic", "Europe"),
-            College("UWC-USA", "America"),
-            College("UWC Changshu China", "Asia"),
-            College("UWC East Africa", "Africa"),
-            College("UWC Thailand", "Asia"),
-            College("Waterford Kamhlaba UWC of Southern Africa", "Africa"),
-            College("UWC Mostar", "Europe"),
-            College("UWC South East Asia", "Asia"),
-            College("UWC Mahindra College", "Asia")
-            ]
