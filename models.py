@@ -31,16 +31,16 @@ class Student:
         self.interests = interests
         self.date_updated = date_updated
 
-        @property
-        def overview(self):
-            return f"""
-            Мене звати {self.name} {self.family_name}
-            Коледж  {self.college}, {self.year_start}-{self.year_finish}
-            Пошта  {self.email}
-            Соц-мережа  {self.social_network}, найркаще комунікувати {self.best_communication}
-            Живу в {self.live_place}
-            Університет {self.university}
-            Робота {self.work}
-            Інтереси {self.interests}
-            Востаннє оновлюваллись дані {self.date_updated}
-            """
+    @property
+    def overview(self):
+        return f"""
+        Мене звати {self.name} {self.family_name}
+        Коледж  {self.college}, {self.year_start}-{self.year_finish}
+        Пошта  {self.email}
+        Соц-мережа  {self.social_network}, найркаще комунікувати {self.best_communication}
+        Живу в {self.live_place}
+        Університет {self.university}
+        Робота {self.work}
+        Інтереси {self.interests}
+        Востаннє оновлюваллись дані {self.date_updated}
+        """

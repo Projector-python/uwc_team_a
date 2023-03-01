@@ -131,7 +131,7 @@ def procces_work(message, student: Student):
 
 
 def ask_interests(message, student: Student):
-    msg = bot.reply_to(message, f"Які твої інтереси? Наприклад \"IT\"")
+    msg = bot.reply_to(message, "Які твої інтереси? Наприклад \"IT\"")
     bot.register_next_step_handler(msg, procces_interests, student=student)
 
 
