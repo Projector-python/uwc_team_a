@@ -3,7 +3,6 @@ from constants import bot
 from models import Student
 from utils import build_reply_markup
 from db import db
-from datetime import date
 
 
 def procces_if_update(message):

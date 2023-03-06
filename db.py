@@ -54,7 +54,7 @@ class DataBase ():
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            DELETE FROM users 
+            DELETE FROM users
             WHERE telegram_id = ?
             AND is_admin = True
             """, (telegram_id,))
@@ -140,7 +140,7 @@ class DataBase ():
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT telegram_id 
+            SELECT telegram_id
             FROM users
             WHERE is_admin = False
         """)

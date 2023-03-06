@@ -4,7 +4,6 @@ from models import Student
 from utils import build_inline_markup, build_reply_markup
 from user_registration import procces_name
 from user_update import procces_if_update
-from db import db
 
 
 def user_panel_processing(message):
