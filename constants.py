@@ -10,6 +10,8 @@ ADD_ADMIN = 'Add admin'
 REMOVE_ADMIN = 'Remove admin'
 SEND_MESSAGE = 'Send message to users'
 UWC_MEMBERS = 'UWC Members'
+COLLEGES = 'College list'
+ADMINS = 'Admin list'
 
 REGISTRATION = 'Registration'
 UPDATE_PROFILE = 'Update profile'
@@ -21,15 +23,17 @@ CUSTOM_MESSAGE = 'Custom message'
 YES = "Так"
 NO = "Ніт"
 YES_NO = (
-     YES,
-     NO
- )
+    YES,
+    NO
+)
 
 ADMIN_PANEL_BUTTONS = (
     ADD_ADMIN,
     REMOVE_ADMIN,
     SEND_MESSAGE,
-    UWC_MEMBERS
+    UWC_MEMBERS,
+    COLLEGES,
+    ADMINS
 )
 
 USER_PANEL_BUTTONS = (

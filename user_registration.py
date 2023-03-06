@@ -1,5 +1,6 @@
 from models import Student
 from constants import bot
+from db import db
 
 
 def procces_name(message, student: Student):
@@ -55,7 +56,7 @@ def ask_mail(message, student: Student):
 
 
 def procces_mail(message, student: Student):
-    student.mail = message.text
+    student.email = message.text
     ask_social_network(message, student=student)
 
 
@@ -139,10 +140,4 @@ def procces_interests(message, student: Student):
     student.interests = message.text
     bot.send_message(message.chat.id, "Дякую за реєстрацію!")
     student.telegram_id = message.from_user.id
-    # necessary to add date of saving it into database as Students.date_updated
-    save_to_bd(student)
-
-
-def save_to_bd(st: Student):
-    # Oleksandr
-    pass
+    db.add_user_to_db(student)

@@ -1,7 +1,9 @@
 import constants
+import os
 from constants import bot
 from utils import build_reply_markup
 from db import db
+from user_update import procces_if_update
 
 
 def admin_panel_processing(message):
@@ -26,6 +28,15 @@ def admin_panel_processing(message):
         bot.register_next_step_handler(msg, admin_send_message)
 
     elif message.text == constants.UWC_MEMBERS:
+        # bot.send_document(message.chat.id, 'uwc_members.xlsx')
+        pass
+
+    elif message.text == constants.COLLEGES:
+        # bot.send_document(message.chat.id, 'uwc_colleges.xlsx')
+        pass
+
+    elif message.text == constants.ADMINS:
+        # bot.send_document(message.chat.id, 'uwc_admins.xlsx')
         pass
 
 
@@ -49,8 +60,13 @@ def del_admin_from_db(message):
 
 def admin_send_message(message):
     if message.text == constants.UPDATE_DATA:
+        markup = build_reply_markup(constants.YES_NO)
+
         for user in db.get_telegram_id_list():
-            bot.send_message(user, 'Please update your profile')
+            msg = bot.send_message(
+                user, 'Please update your profile', reply_markup=markup)
+            bot.register_next_step_handler(msg, procces_if_update)
+            # add update_date check and run update process if it need
 
         bot.reply_to(message, 'Done')
 
@@ -66,3 +82,13 @@ def admin_send_custom_message_processing(message):
         bot.send_message(user, message.text)
 
     bot.reply_to(message, 'Done')
+
+
+def admin_send_file_xls(message):
+    db.export_data_to_excell()
+    bot.send_document(message.from_user.id, 'uwc_members.xlsx')
+    del_file()
+
+
+def del_file(filename='uwc_members.xlsx'):
+    os.remove(filename)

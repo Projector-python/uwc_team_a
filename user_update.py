@@ -2,14 +2,16 @@ import constants
 from constants import bot
 from models import Student
 from utils import build_reply_markup
+from db import db
+from datetime import date
 
 
-def procces_if_update(message, student: Student):
+def procces_if_update(message):
     if (message.text == constants.NO):
-        # here we should update date of update to today's and do nothing
-        pass
+        db.refresh_update_date(message.from_user.id)
     elif (message.text == constants.YES):
-        markup = build_reply_markup(("Далі"))
+        student = db.get_student_info(message.from_user.id)
+        markup = build_reply_markup(["Далі"])
         msg = bot.send_message(
             message.chat.id,
             """Ми пройдемось по кожному з параметрів \
@@ -24,7 +26,7 @@ def ask_change_mail(message, student: Student):
     markup = build_reply_markup(constants.YES_NO)
     msg = bot.send_message(
         message.chat.id,
-        f"Ваша пошта {student.mail}. Треба її змінити?",
+        f"Ваша пошта {student.email}. Треба її змінити?",
         reply_markup=markup
     )
     bot.register_next_step_handler(msg, procces_if_change_mail, student)
@@ -44,7 +46,7 @@ def procces_if_change_mail(message, student: Student):
 
 
 def procces_change_mail(message, student: Student):
-    student.mail = message.text
+    student.email = message.text
     ask_change_mail(message, student)
 
 
@@ -52,7 +54,7 @@ def ask_change_live_place(message, student: Student):
     markup = build_reply_markup(constants.YES_NO)
     msg = bot.send_message(
         message.chat.id,
-        f"Ви живете в {student.live_place}. Треба її змінити?",
+        f"Ви живете в {student.live_place}. Треба змінити інформацію?",
         reply_markup=markup
     )
     bot.register_next_step_handler(msg, procces_if_change_live_place, student)
@@ -93,9 +95,7 @@ def procces_if_change_work(message, student: Student):
             msg, procces_change_work, student=student,
         )
     elif message.text == constants.NO:
-        # Here shoud be a check if year_finish is earlier today's date
-        # if it is the case, no need to ask update information about university
-        pass
+        ask_change_university(message, student)
 
 
 def procces_change_work(message, student: Student):
@@ -132,5 +132,5 @@ def procces_change_university(message, student: Student):
 
 
 def save_info(message, student: Student):
-    # update information from instance student to DB, send a thank you to user
-    pass
+    db.update_user_in_db(student)
+    bot.send_message(message.chat.id, "Дякую, ваші дані оновлено")

@@ -1,8 +1,10 @@
 import constants
 from constants import bot
 from models import Student
-from utils import build_inline_markup
+from utils import build_inline_markup, build_reply_markup
 from user_registration import procces_name
+from user_update import procces_if_update
+from db import db
 
 
 def user_panel_processing(message):
@@ -13,7 +15,13 @@ def user_panel_processing(message):
         bot.register_next_step_handler(msg, procces_name, student=student)
 
     elif message.text == constants.UPDATE_PROFILE:
-        pass
+        markup = build_reply_markup(constants.YES_NO)
+
+        msg = bot.reply_to(
+            message, "Ви хочете оновити свої дані?", reply_markup=markup
+        )
+        bot.register_next_step_handler(
+            msg, procces_if_update)
 
     elif message.text == constants.UWC_SMM:
         markup = build_inline_markup(constants.SOCIAL_BUTTONS)

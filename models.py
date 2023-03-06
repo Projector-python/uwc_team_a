@@ -1,27 +1,27 @@
 class Student:
-    def __init___(self,
-                  telegram_id: int,
-                  name: str,
-                  family_name: str,
-                  college: str,
-                  year_start: int,
-                  year_finish: int,
-                  mail: str,
-                  social_network: str,
-                  best_commumication: str,
-                  agree_share_pers_info: bool,
-                  live_place: str,
-                  university: str,
-                  work: str,
-                  interests: str,
-                  date_updated):
+    def __init__(self,
+                 telegram_id: int = None,
+                 name: str = None,
+                 family_name: str = None,
+                 college: str = None,
+                 year_start: int = None,
+                 year_finish: int = None,
+                 email: str = None,
+                 social_network: str = None,
+                 best_commumication: str = None,
+                 agree_share_pers_info: bool = None,
+                 live_place: str = None,
+                 university: str = None,
+                 work: str = None,
+                 interests: str = None,
+                 date_updated=None):
         self.telegram_id = telegram_id
         self.name = name
         self.family_name = family_name
         self.college = college
         self.year_start = year_start
         self.year_finish = year_finish
-        self.mail = mail
+        self.email = email
         self.social_network = social_network
         self.best_commumication = best_commumication
         self.agree_share_pers_info = agree_share_pers_info
@@ -45,3 +45,23 @@ class Student:
         Інтереси {self.interests}
         Востаннє оновлюваллись дані {self.date_updated}
         """
+
+    def get_info(self) -> tuple:
+        info = (
+            self.telegram_id,
+            self.name,
+            self.family_name,
+            self.college,
+            self.year_start,
+            self.year_finish,
+            self.email,
+            self.social_network,
+            self.best_commumication,
+            self.agree_share_pers_info,
+            self.live_place,
+            self.university,
+            self.work,
+            self.interests
+        )
+
+        return info
