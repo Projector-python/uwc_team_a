@@ -6,19 +6,23 @@ bot = telebot.TeleBot(TOKEN)
 
 DATABASE = 'uwc_database.db'
 
-ADD_ADMIN = 'Add admin'
-REMOVE_ADMIN = 'Remove admin'
-SEND_MESSAGE = 'Send message to users'
-UWC_MEMBERS = 'UWC Members'
-COLLEGES = 'College list'
-ADMINS = 'Admin list'
+ADD_ADMIN = 'Додати адміна'
+REMOVE_ADMIN = 'Видалити адміна'
+SEND_MESSAGE = 'Надіслати повідомлення учасникам'
+UWC_MEMBERS = 'Інформація про учасників'
+COLLEGES = 'Список коледжів'
+ADMINS = 'Список адмінів'
 
-REGISTRATION = 'Registration'
-UPDATE_PROFILE = 'Update profile'
-UWC_SMM = 'UWC Social Media'
+REGISTRATION = 'Реєстрація'
+UPDATE_PROFILE = 'Оновлення даних'
+UWC_SMM = 'Соціальні мережі UWC'
 
-UPDATE_DATA = 'Update data'
-CUSTOM_MESSAGE = 'Custom message'
+UPDATE_DATA = 'Оновлення даних'
+CUSTOM_MESSAGE = 'Інше повідомлення'
+
+FILE_STUDENTS = 'uwc_students.csv'
+FILE_COLLEGES = 'uwc_colleges.csv'
+FILE_ADMINS = 'uwc_admins.csv'
 
 YES = "Так"
 NO = "Ніт"

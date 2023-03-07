@@ -1,6 +1,7 @@
 import sqlite3
+import csv
+import constants
 from models import Student
-from openpyxl import Workbook
 from datetime import date
 
 
@@ -73,7 +74,7 @@ class DataBase ():
             AND telegram_id = {telegram_id})
             """)
 
-        return cursor.fetchone()[0]
+        return bool(cursor.fetchone()[0])
 
     def add_user_to_db(self, student: Student):
         cursor = self.connection.cursor()
@@ -184,59 +185,38 @@ class DataBase ():
     def if_update_need(self, telegram_id):
         pass
 
-    def export_student_to_excell(self):
+    def write_to_csv(self, file_name: str, cursor: sqlite3.Cursor):
+        with open(file_name, 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow([header[0] for header in cursor.description])
+            writer.writerows(cursor)
+
+    def export_student_to_csv(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM users")
+        cursor.execute("""
+            SELECT * FROM users
+            WHERE is_admin = False
+            """)
 
-        rows = cursor.fetchall()
+        db.write_to_csv(
+            constants.FILE_STUDENTS, cursor)
 
-        wb = Workbook()
-        ws = wb.active
-
-        headers = [description[0] for description in cursor.description]
-        ws.append(headers)
-
-        for row in rows:
-            ws.append(row)
-
-        wb.save('uwc_members.xlsx')
-
-    def export_admins_to_excell(self):
+    def export_admins_to_csv(self):
         cursor = self.connection.cursor()
         cursor.execute("""
             SELECT telegram_id, name FROM users
             WHERE is_admin = True
             """)
 
-        rows = cursor.fetchall()
+        db.write_to_csv(
+            constants.FILE_ADMINS, cursor)
 
-        wb = Workbook()
-        ws = wb.active
-
-        headers = [description[0] for description in cursor.description]
-        ws.append(headers)
-
-        for row in rows:
-            ws.append(row)
-
-        wb.save('uwc_admins.xlsx')
-
-    def export_colleges_to_excell(self):
+    def export_colleges_to_csv(self):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM colleges")
 
-        rows = cursor.fetchall()
-
-        wb = Workbook()
-        ws = wb.active
-
-        headers = [description[0] for description in cursor.description]
-        ws.append(headers)
-
-        for row in rows:
-            ws.append(row)
-
-        wb.save('uwc_colleges.xlsx')
+        db.write_to_csv(
+            constants.FILE_COLLEGES, cursor)
 
 
 db = DataBase()

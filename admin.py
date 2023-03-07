@@ -23,7 +23,7 @@ def admin_panel_processing(message):
         markup = build_reply_markup(constants.SEND_MESSAGE_BUTTONS)
 
         msg = bot.send_message(
-            message.chat.id, "Update data request or custom message?",
+            message.chat.id, "Запит на оновлення чи інше повідомлення?",
             reply_markup=markup)
         bot.register_next_step_handler(msg, admin_send_message)
 
@@ -64,7 +64,8 @@ def admin_send_message(message):
 
         for user in db.get_telegram_id_list():
             msg = bot.send_message(
-                user, 'Please update your profile', reply_markup=markup)
+                user, 'Привіт. Будь ласка оновіть дані вашого профілю',
+                reply_markup=markup)
             bot.register_next_step_handler(msg, procces_if_update)
             # add update_date check and run update process if it need
 
@@ -72,7 +73,8 @@ def admin_send_message(message):
 
     elif message.text == constants.CUSTOM_MESSAGE:
         msg = bot.send_message(
-            message.chat.id, "Write the message for all UWC members:")
+            message.chat.id,
+            "Напишіть повідомлення і воно буде надіслано всім учасникам:")
         bot.register_next_step_handler(
             msg, admin_send_custom_message_processing)
 
@@ -81,14 +83,26 @@ def admin_send_custom_message_processing(message):
     for user in db.get_telegram_id_list():
         bot.send_message(user, message.text)
 
-    bot.reply_to(message, 'Done')
+    bot.reply_to(message, 'Повідомллення надіслані')
 
 
-def admin_send_file_xls(message):
-    db.export_data_to_excell()
-    bot.send_document(message.from_user.id, 'uwc_members.xlsx')
-    del_file()
+def admin_send_admins_csv(message):
+    db.export_admins_to_csv()
+    bot.send_document(message.from_user.id, constants.FILE_ADMINS)
+    del_file(constants.FILE_ADMINS)
 
 
-def del_file(filename='uwc_members.xlsx'):
+def admin_send_students_csv(message):
+    db.export_student_to_csv()
+    bot.send_document(message.from_user.id, constants.FILE_STUDENTS)
+    del_file(constants.FILE_STUDENTS)
+
+
+def admin_send_colleges_csv(message):
+    db.export_colleges_to_csv()
+    bot.send_document(message.from_user.id, constants.FILE_COLLEGES)
+    del_file(constants.FILE_COLLEGES)
+
+
+def del_file(filename: str):
     os.remove(filename)

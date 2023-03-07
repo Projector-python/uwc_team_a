@@ -10,7 +10,7 @@ from db import db
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message: Message):
     if message.text == '/start':
-        mess = f'Hello, <b>{message.from_user.first_name}</b>'
+        mess = f'Привіт, <b>{message.from_user.first_name}</b>'
         markup = build_reply_markup(constants.USER_PANEL_BUTTONS)
 
         msg = bot.send_message(message.chat.id, mess,
@@ -27,7 +27,7 @@ def admin_panel(message: Message):
         markup = build_reply_markup(constants.ADMIN_PANEL_BUTTONS)
 
         msg = bot.send_message(
-            message.chat.id, "Hello! Welcome to admin panel!",
+            message.chat.id, "Привіт. Ви знаходитесь в адмін панелі!",
             reply_markup=markup)
         bot.register_next_step_handler(msg, admin.admin_panel_processing)
 
