@@ -86,23 +86,16 @@ def admin_send_custom_message_processing(message):
     bot.reply_to(message, 'Повідомллення надіслані')
 
 
-def admin_send_admins_csv(message):
-    db.export_admins_to_csv()
-    bot.send_document(message.from_user.id, constants.FILE_ADMINS)
-    del_file(constants.FILE_ADMINS)
+def admin_send_files_csv(message: types.Message, type: str):
+    handler, filename = {
+        'admins': (db.export_admins_to_csv, constants.FILE_ADMINS),
+        'students': (db.export_student_to_csv, constants.FILE_STUDENTS),
+        'colleges': (db.export_colleges_to_csv, constants.FILE_COLLEGES),
+    }[type]
 
+    handler()
+    bot.send_document(message.from_user.id, filename)
 
-def admin_send_students_csv(message):
-    db.export_student_to_csv()
-    bot.send_document(message.from_user.id, constants.FILE_STUDENTS)
-    del_file(constants.FILE_STUDENTS)
+    if os.path.exists(filename):
+        os.remove(filename)
 
-
-def admin_send_colleges_csv(message):
-    db.export_colleges_to_csv()
-    bot.send_document(message.from_user.id, constants.FILE_COLLEGES)
-    del_file(constants.FILE_COLLEGES)
-
-
-def del_file(filename: str):
-    os.remove(filename)
