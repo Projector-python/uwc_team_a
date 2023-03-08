@@ -1,7 +1,9 @@
 import constants
+import os
 from constants import bot
 from utils import build_reply_markup
 from db import db
+from user_update import procces_if_update
 
 
 def admin_panel_processing(message):
@@ -21,11 +23,20 @@ def admin_panel_processing(message):
         markup = build_reply_markup(constants.SEND_MESSAGE_BUTTONS)
 
         msg = bot.send_message(
-            message.chat.id, "Update data request or custom message?",
+            message.chat.id, "Запит на оновлення чи інше повідомлення?",
             reply_markup=markup)
         bot.register_next_step_handler(msg, admin_send_message)
 
     elif message.text == constants.UWC_MEMBERS:
+        # bot.send_document(message.chat.id, 'uwc_members.xlsx')
+        pass
+
+    elif message.text == constants.COLLEGES:
+        # bot.send_document(message.chat.id, 'uwc_colleges.xlsx')
+        pass
+
+    elif message.text == constants.ADMINS:
+        # bot.send_document(message.chat.id, 'uwc_admins.xlsx')
         pass
 
 
@@ -49,14 +60,21 @@ def del_admin_from_db(message):
 
 def admin_send_message(message):
     if message.text == constants.UPDATE_DATA:
+        markup = build_reply_markup(constants.YES_NO)
+
         for user in db.get_telegram_id_list():
-            bot.send_message(user, 'Please update your profile')
+            msg = bot.send_message(
+                user, 'Привіт. Будь ласка оновіть дані вашого профілю',
+                reply_markup=markup)
+            bot.register_next_step_handler(msg, procces_if_update)
+            # add update_date check and run update process if it need
 
         bot.reply_to(message, 'Done')
 
     elif message.text == constants.CUSTOM_MESSAGE:
         msg = bot.send_message(
-            message.chat.id, "Write the message for all UWC members:")
+            message.chat.id,
+            "Напишіть повідомлення і воно буде надіслано всім учасникам:")
         bot.register_next_step_handler(
             msg, admin_send_custom_message_processing)
 
@@ -65,4 +83,19 @@ def admin_send_custom_message_processing(message):
     for user in db.get_telegram_id_list():
         bot.send_message(user, message.text)
 
-    bot.reply_to(message, 'Done')
+    bot.reply_to(message, 'Повідомллення надіслані')
+
+
+def admin_send_files_csv(message: types.Message, type: str):
+    handler, filename = {
+        'admins': (db.export_admins_to_csv, constants.FILE_ADMINS),
+        'students': (db.export_student_to_csv, constants.FILE_STUDENTS),
+        'colleges': (db.export_colleges_to_csv, constants.FILE_COLLEGES),
+    }[type]
+
+    handler()
+    bot.send_document(message.from_user.id, filename)
+
+    if os.path.exists(filename):
+        os.remove(filename)
+
