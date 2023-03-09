@@ -1,5 +1,8 @@
 from telebot import types
 import re
+from constants import bot
+from models import Student
+
 
 def build_reply_markup(
         button_list: tuple[str]) -> types.ReplyKeyboardMarkup:
@@ -49,3 +52,15 @@ def check_email(message):
     pattern = re.compile(regex)
     match = pattern.search(message) is not None
     return match
+
+
+def validate_str(message, student: Student, func):
+    return bot.register_next_step_handler(message, lambda message: func(message, student))
+
+
+def validate_int(message, student: Student, func):
+    return bot.register_next_step_handler(message, lambda message: func(message, student))
+
+
+def validate_mail(message, student: Student, func):
+    return bot.register_next_step_handler(message, lambda message: func(message, student))

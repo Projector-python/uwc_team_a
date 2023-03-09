@@ -1,17 +1,17 @@
 from models import Student
 from constants import bot
 from db import db
-from utils import check_str, check_int, check_email
+from utils import check_str, check_int, check_email, validate_str, validate_int, validate_mail
 
 
 def process_name(message, student: Student):
     student.name = message.text
     if not check_str(student.name):
         msg = bot.send_message(
-            message.chat.id, """ім'я введено невірно, використовуйте лише українську або 
-            англійську мову"""
+            message.chat.id, """Ім'я введено невірно, використовуйте лише українську або \
+                                англійську мову"""
         )
-        return bot.register_next_step_handler(msg, lambda msg: process_name(msg, student))
+        return validate_str(message, student, process_name)
     ask_family_name(message, student=student)
 
 
@@ -24,10 +24,10 @@ def process_family_name(message, student: Student):
     student.family_name = message.text
     if not check_str(student.family_name):
         msg = bot.send_message(
-            message.chat.id, """Прізвище введено невірно, використовуйте лише українську або 
-            англійську мову"""
+            message.chat.id, """Прізвище введено невірно, спробуйте лише українську або \
+                                англійську мову"""
         )
-        return bot.register_next_step_handler(msg, lambda msg: process_family_name(msg, student))
+        return validate_str(message, student, process_family_name)
     ask_college(message, student=student)
 
 
@@ -52,7 +52,7 @@ def process_year_start(message, student: Student):
         msg = bot.send_message(
             message.chat.id, "Рік введено невірно, використовуйте лише цифри"
         )
-        return bot.register_next_step_handler(msg, lambda msg: process_year_start(msg, student))
+        return validate_int(message, student, process_year_start)
     ask_year_finish(message, student=student)
 
 
@@ -67,7 +67,7 @@ def process_year_finish(message, student: Student):
         msg = bot.send_message(
             message.chat.id, "Рік введено невірно, використовуйте лише цифри"
         )
-        return bot.register_next_step_handler(msg, lambda msg: process_year_finish(msg, student))
+        return validate_int(message, student, process_year_finish)
     ask_mail(message, student=student)
 
 
@@ -84,17 +84,17 @@ def process_mail(message, student: Student):
         msg = bot.send_message(
             message.chat.id, "Пошта вказана невірно, спробуйте знову, наприклад name@gmail.com"
         )
-        return bot.register_next_step_handler(msg, lambda msg: process_mail(msg, student))
+        return validate_mail(message, student, process_mail)
     ask_social_network(message, student=student)
 
 
 def ask_social_network(message, student: Student):
     msg = bot.reply_to(message, "Введи свій ЛінкедІн, наприклад linkedIn/name")
     bot.register_next_step_handler(
-        msg, procces_social_network, student=student)
+        msg, process_social_network, student=student)
 
 
-def procces_social_network(message, student: Student):
+def process_social_network(message, student: Student):
     student.social_network = message.text
     ask_best_commumication(message, student=student)
 

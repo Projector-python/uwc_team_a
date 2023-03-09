@@ -20,6 +20,12 @@ def admin_panel_processing(message):
         )
         bot.register_next_step_handler(msg, del_admin_from_db)
 
+    elif message.text == constants.ADD_COLLEGE:
+        msg = bot.send_message(
+            message.chat.id, "Введіть коледж, який бажаєте додати:"
+        )
+        bot.register_next_step_handler(msg, process_college)
+
     elif message.text == constants.SEND_MESSAGE:
         markup = build_reply_markup(constants.SEND_MESSAGE_BUTTONS)
 
@@ -57,6 +63,18 @@ def del_admin_from_db(message):
     admin_id = message.text
     db.remove_admin_from_db(admin_id)
     bot.send_message(message.chat.id, "Адміна видалено")
+
+
+def process_college(message):
+    name = message.text
+    msg = bot.send_message(message.chat.id, "Введіть локацію коледжу (нап. Європа:")
+    bot.register_next_step_handler(msg, add_college_to_db, name=name)
+
+
+def add_college_to_db(message, name: str):
+    college_location = message.text
+    #db.add_college_to_db(college_location, name)
+    bot.send_message(message.chat.id, "Коледж додано")
 
 
 def admin_send_message(message):
@@ -99,4 +117,3 @@ def admin_send_files_csv(message: types.Message, type: str):
 
     if os.path.exists(filename):
         os.remove(filename)
-
