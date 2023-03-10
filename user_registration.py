@@ -45,7 +45,9 @@ def process_college(message, student: Student):
 
 
 def ask_year_start(message, student: Student):
-    msg = bot.reply_to(message, "Напиши рік початку навчання (наприклад: 1999)")
+    msg = bot.reply_to(
+        message, "Напиши рік початку навчання (наприклад: 1999)"
+    )
     bot.register_next_step_handler(msg, process_year_start, student=student)
 
 
@@ -60,7 +62,9 @@ def process_year_start(message, student: Student):
 
 
 def ask_year_finish(message, student: Student):
-    msg = bot.reply_to(message, "Напиши рік закінчення навчання (наприклад: 2001)")
+    msg = bot.reply_to(
+        message, "Напиши рік закінчення навчання (наприклад: 2001)"
+    )
     bot.register_next_step_handler(msg, process_year_finish, student=student)
 
 

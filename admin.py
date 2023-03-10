@@ -1,10 +1,12 @@
-import constants
 import os
+
+from telebot import types
+
+import constants
 from constants import bot
-from utils import build_reply_markup
 from db import db
 from user_update import procces_if_update
-from telebot import types
+from utils import build_reply_markup
 
 
 def admin_panel_processing(message):

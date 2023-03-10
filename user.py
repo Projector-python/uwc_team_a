@@ -1,9 +1,9 @@
 import constants
 from constants import bot
 from models import Student
-from utils import build_inline_markup, build_reply_markup
 from user_registration import process_name
 from user_update import procces_if_update
+from utils import build_inline_markup, build_reply_markup
 
 
 def user_panel_processing(message):

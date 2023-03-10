@@ -48,7 +48,9 @@ def check_int(message):
 
 
 def check_email(message):
-    regex = (r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+    regex = (
+        r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+    )
     pattern = re.compile(regex)
     match = pattern.search(message) is not None
     return match
