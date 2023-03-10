@@ -67,13 +67,15 @@ def del_admin_from_db(message):
 
 def process_college(message):
     name = message.text
-    msg = bot.send_message(message.chat.id, "Введіть локацію коледжу (нап. Європа:")
+    msg = bot.send_message(
+        message.chat.id, "Введіть локацію коледжу (нап. Європа:"
+    )
     bot.register_next_step_handler(msg, add_college_to_db, name=name)
 
 
 def add_college_to_db(message, name: str):
     college_location = message.text
-    #db.add_college_to_db(college_location, name)
+    db.add_college_to_db(college_location, name)
     bot.send_message(message.chat.id, "Коледж додано")
 
 

@@ -55,12 +55,18 @@ def check_email(message):
 
 
 def validate_str(message, student: Student, func):
-    return bot.register_next_step_handler(message, lambda message: func(message, student))
+    return bot.register_next_step_handler(
+        message, lambda message: func(message, student)
+    )
 
 
 def validate_int(message, student: Student, func):
-    return bot.register_next_step_handler(message, lambda message: func(message, student))
+    return bot.register_next_step_handler(
+        message, lambda message: func(message, student)
+    )
 
 
 def validate_mail(message, student: Student, func):
-    return bot.register_next_step_handler(message, lambda message: func(message, student))
+    return bot.register_next_step_handler(
+        message, lambda message: func(message, student)
+    )
