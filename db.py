@@ -84,7 +84,7 @@ class DataBase ():
     def get_college_list(self):
         cursor = self.connection.cursor()
 
-        cursor.execute(f"""
+        cursor.execute("""
             SELECT name FROM colleges
             """)
 
