@@ -1,8 +1,8 @@
 import constants
 from constants import bot
+from db import db
 from models import Student
 from utils import build_reply_markup
-from db import db
 
 
 def procces_if_update(message):

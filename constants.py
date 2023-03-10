@@ -8,6 +8,7 @@ DATABASE = 'uwc_database.db'
 
 ADD_ADMIN = 'Додати адміна'
 REMOVE_ADMIN = 'Видалити адміна'
+ADD_COLLEGE = 'Додати коледж'
 SEND_MESSAGE = 'Надіслати повідомлення учасникам'
 UWC_MEMBERS = 'Інформація про учасників'
 COLLEGES = 'Список коледжів'
@@ -34,6 +35,7 @@ YES_NO = (
 ADMIN_PANEL_BUTTONS = (
     ADD_ADMIN,
     REMOVE_ADMIN,
+    ADD_COLLEGE,
     SEND_MESSAGE,
     UWC_MEMBERS,
     COLLEGES,
