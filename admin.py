@@ -1,7 +1,5 @@
 import os
-
 from telebot import types
-
 import constants
 from constants import bot
 from db import db
@@ -37,16 +35,13 @@ def admin_panel_processing(message):
         bot.register_next_step_handler(msg, admin_send_message)
 
     elif message.text == constants.UWC_MEMBERS:
-        # bot.send_document(message.chat.id, 'uwc_members.xlsx')
-        pass
+        admin_send_files_csv(message, 'students')
 
     elif message.text == constants.COLLEGES:
-        # bot.send_document(message.chat.id, 'uwc_colleges.xlsx')
-        pass
+        admin_send_files_csv(message, 'colleges')
 
     elif message.text == constants.ADMINS:
-        # bot.send_document(message.chat.id, 'uwc_admins.xlsx')
-        pass
+        admin_send_files_csv(message, 'admins')
 
 
 def get_admin_id(message):
@@ -69,8 +64,11 @@ def del_admin_from_db(message):
 
 def process_college(message):
     name = message.text
+
+    markup = build_reply_markup(constants.LOCATIONS)
+
     msg = bot.send_message(
-        message.chat.id, "Введіть локацію коледжу (нап. Європа:"
+        message.chat.id, "Оберіть локацію коледжу:", reply_markup=markup
     )
     bot.register_next_step_handler(msg, add_college_to_db, name=name)
 
@@ -117,7 +115,10 @@ def admin_send_files_csv(message: types.Message, type: str):
     }[type]
 
     handler()
-    bot.send_document(message.from_user.id, filename)
+    file_path = os.path.join(os.getcwd(), filename)
+
+    with open(file_path, 'rb') as f:
+        bot.send_document(message.chat.id, f)
 
     if os.path.exists(filename):
         os.remove(filename)

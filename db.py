@@ -49,6 +49,7 @@ class DataBase ():
         self.connection.execute("""
             INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
         """, (telegram_id, name))
+
         self.connection.commit()
 
     def remove_admin_from_db(self, telegram_id: int):
@@ -62,9 +63,6 @@ class DataBase ():
 
         self.connection.commit()
 
-    def show_admin_from_db(self):
-        pass
-
     def is_admin(self, telegram_id: int) -> bool:
         cursor = self.connection.cursor()
 
@@ -75,6 +73,26 @@ class DataBase ():
             """)
 
         return bool(cursor.fetchone()[0])
+
+    def add_college_to_db(self, name: str, location: str):
+        self.connection.execute("""
+            INSERT INTO colleges (location, name) VALUES (?, ?)
+        """, (name, location))
+
+        self.connection.commit()
+
+    def get_college_list(self):
+        cursor = self.connection.cursor()
+
+        cursor.execute(f"""
+            SELECT name FROM colleges
+            """)
+
+        temp = cursor.fetchall()
+
+        college_list = ([x[0] for x in temp])
+
+        return college_list
 
     def add_user_to_db(self, student: Student):
         cursor = self.connection.cursor()
@@ -150,9 +168,6 @@ class DataBase ():
         user_list = set([x[0] for x in temp])
 
         return user_list
-
-    def show_all_users(self):
-        pass
 
     def get_student_info(self, telegram_id: int) -> Student:
         cursor = self.connection.cursor()

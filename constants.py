@@ -6,11 +6,17 @@ bot = telebot.TeleBot(TOKEN)
 
 DATABASE = 'uwc_database.db'
 
+BOT_INFO = """
+    Цей бот створений для простішої комунікіції з \
+    випускниками та студентами UWC. Він допоже підтримувати \
+    дані в актуальному.
+"""
+
 ADD_ADMIN = 'Додати адміна'
 REMOVE_ADMIN = 'Видалити адміна'
 ADD_COLLEGE = 'Додати коледж'
 SEND_MESSAGE = 'Надіслати повідомлення учасникам'
-UWC_MEMBERS = 'Інформація про учасників'
+UWC_MEMBERS = 'Список учасників'
 COLLEGES = 'Список коледжів'
 ADMINS = 'Список адмінів'
 
@@ -27,6 +33,7 @@ FILE_ADMINS = 'uwc_admins.csv'
 
 YES = "Так"
 NO = "Ніт"
+
 YES_NO = (
     YES,
     NO
@@ -59,3 +66,10 @@ SOCIAL_BUTTONS = {
     'Website': 'https://www.ukraine.uwc.org',
     'LinkedIn': 'https://www.linkedin.com/company/uwcukraine'
 }
+
+LOCATIONS = (
+    'Asia',
+    'Africa',
+    'America',
+    'Europe'
+)

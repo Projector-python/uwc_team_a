@@ -1,8 +1,8 @@
-from constants import bot
+from constants import bot, YES_NO
 from db import db
 from models import Student
 from utils import check_str, check_int, check_email, \
-    validate_str, validate_int, validate_mail
+    validate_str, validate_int, validate_mail, build_reply_markup
 
 
 def process_name(message, student: Student):
@@ -35,7 +35,9 @@ def process_family_name(message, student: Student):
 
 
 def ask_college(message, student: Student):
-    msg = bot.reply_to(message, "В якому коледжі ти навчався:")
+    markup = build_reply_markup(db.get_college_list())
+    msg = bot.reply_to(
+        message, "В якому коледжі ти навчався:", reply_markup=markup)
     bot.register_next_step_handler(msg, process_college, student=student)
 
 
@@ -121,7 +123,10 @@ def process_best_commumication(message, student: Student):
 
 
 def ask_agree_share_pers_info(message, student: Student):
-    msg = bot.reply_to(message, "Чи ти згодний на поширення особистих даних?")
+    markup = build_reply_markup(YES_NO)
+    msg = bot.reply_to(
+        message, "Чи згодні ви на поширення особистих даних?",
+        reply_markup=markup)
     bot.register_next_step_handler(
         msg, process_agree_share_pers_info, student=student)
 

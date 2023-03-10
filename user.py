@@ -25,5 +25,5 @@ def user_panel_processing(message):
     elif message.text == constants.UWC_SMM:
         markup = build_inline_markup(constants.SOCIAL_BUTTONS)
 
-        bot.send_message(message.chat.id, "Our social media:",
+        bot.send_message(message.chat.id, "Наші соціальні мережі:",
                          reply_markup=markup)

@@ -1,5 +1,4 @@
 from telebot.types import Message
-
 import admin
 import constants
 import user
@@ -19,7 +18,7 @@ def send_welcome(message: Message):
         bot.register_next_step_handler(msg, user.user_panel_processing)
 
     elif message.text == '/help':
-        bot.send_message(message.chat.id, "What bot can do?")
+        bot.send_message(message.chat.id, constants.BOT_INFO)
 
 
 @bot.message_handler(commands=['admin'])
