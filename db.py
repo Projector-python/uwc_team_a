@@ -59,7 +59,8 @@ class DataBase ():
 
         if not db.is_admin(telegram_id):
             self.connection.execute("""
-                INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
+                INSERT INTO users (telegram_id, name, is_admin)
+                VALUES (?, ?, True)
             """, (telegram_id, name))
 
             self.connection.commit()

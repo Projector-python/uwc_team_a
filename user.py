@@ -11,7 +11,7 @@ def user_panel_processing(message):
     if message.text == constants.REGISTRATION:
         if db.is_user(message.from_user.id):
             bot.reply_to(
-            message, "Ви вже реєструвались, спробуйте оновити свої дані")
+                message, "Ви вже реєструвались, спробуйте оновити свої дані")
         else:
             student = Student()
             msg = bot.reply_to(
