@@ -37,7 +37,8 @@ def process_family_name(message, student: Student):
 def ask_college(message, student: Student):
     markup = build_reply_markup(db.get_college_list())
     msg = bot.reply_to(
-        message, "В якому коледжі ти навчався:", reply_markup=markup)
+        message, "В якому коледжі UWC ти навчався (Виберіть зі списку):",
+        reply_markup=markup)
     bot.register_next_step_handler(msg, process_college, student=student)
 
 
@@ -88,8 +89,8 @@ def ask_mail(message, student: Student):
 
 
 def process_mail(message, student: Student):
-    student.mail = message.text
-    if not check_email(student.mail):
+    student.email = message.text
+    if not check_email(student.email):
         bot.send_message(
             message.chat.id,
             "Пошта вказана невірно, спробуйте знову, наприклад name@gmail.com"
@@ -106,19 +107,19 @@ def ask_social_network(message, student: Student):
 
 def process_social_network(message, student: Student):
     student.social_network = message.text
-    ask_best_commumication(message, student=student)
+    ask_best_communication(message, student=student)
 
 
-def ask_best_commumication(message, student: Student):
+def ask_best_communication(message, student: Student):
     msg = bot.reply_to(
         message,
         "Введи зручний спосіб звʼязку, наприклад \"telegram: @name\"")
     bot.register_next_step_handler(
-        msg, process_best_commumication, student=student)
+        msg, process_best_communication, student=student)
 
 
-def process_best_commumication(message, student: Student):
-    student.best_commumication = message.text
+def process_best_communication(message, student: Student):
+    student.best_communication = message.text
     ask_agree_share_pers_info(message, student=student)
 
 
@@ -182,3 +183,4 @@ def process_interests(message, student: Student):
     bot.send_message(message.chat.id, "Дякую за реєстрацію!")
     student.telegram_id = message.from_user.id
     db.add_user_to_db(student)
+    bot.send_message(message.chat.id, student.overview)

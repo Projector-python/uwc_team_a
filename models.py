@@ -8,7 +8,7 @@ class Student:
                  year_finish: int = None,
                  email: str = None,
                  social_network: str = None,
-                 best_commumication: str = None,
+                 best_communication: str = None,
                  agree_share_pers_info: bool = None,
                  live_place: str = None,
                  university: str = None,
@@ -23,7 +23,7 @@ class Student:
         self.year_finish = year_finish
         self.email = email
         self.social_network = social_network
-        self.best_commumication = best_commumication
+        self.best_communication = best_communication
         self.agree_share_pers_info = agree_share_pers_info
         self.live_place = live_place
         self.university = university
@@ -34,16 +34,17 @@ class Student:
     @property
     def overview(self):
         return f"""
-        Мене звати {self.name} {self.family_name}
-        Коледж  {self.college}, {self.year_start}-{self.year_finish}
-        Пошта  {self.email}
-        Соц-мережа  {self.social_network}, \
-        найркаще комунікувати {self.best_communication}
-        Живу в {self.live_place}
-        Університет {self.university}
-        Робота {self.work}
-        Інтереси {self.interests}
-        Востаннє оновлюваллись дані {self.date_updated}
+        Профіль студента: \n
+        \nМене звати {self.name} {self.family_name} \
+        \nКоледж  {self.college}, {self.year_start}-{self.year_finish} \
+        \nПошта  {self.email} \
+        \nСоц-мережа  {self.social_network}, \
+        найркаще комунікувати {self.best_communication} \
+        \nЖиву в {self.live_place} \
+        \nУніверситет {self.university} \
+        \nРобота {self.work} \
+        \nІнтереси {self.interests} \
+        \nВостаннє оновлюваллись дані {self.date_updated}
         """
 
     def get_info(self) -> tuple:
@@ -56,7 +57,7 @@ class Student:
             self.year_finish,
             self.email,
             self.social_network,
-            self.best_commumication,
+            self.best_communication,
             self.agree_share_pers_info,
             self.live_place,
             self.university,

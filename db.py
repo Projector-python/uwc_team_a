@@ -46,11 +46,23 @@ class DataBase ():
         self.connection.commit()
 
     def add_admin_to_db(self, telegram_id: int, name: str):
-        self.connection.execute("""
-            INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
-        """, (telegram_id, name))
+        if db.is_user(telegram_id):
+            cursor = self.connection.cursor()
 
-        self.connection.commit()
+            cursor.execute("""
+            UPDATE users
+            SET is_admin = ?
+            WHERE telegram_id = ?
+        """, (True, telegram_id))
+
+            self.connection.commit()
+
+        if not db.is_admin(telegram_id):
+            self.connection.execute("""
+                INSERT INTO users (telegram_id, name, is_admin) VALUES (?, ?, True)
+            """, (telegram_id, name))
+
+            self.connection.commit()
 
     def remove_admin_from_db(self, telegram_id: int):
         cursor = self.connection.cursor()
@@ -69,6 +81,17 @@ class DataBase ():
         cursor.execute(f"""
             SELECT EXISTS(SELECT * FROM users
             WHERE is_admin = True
+            AND telegram_id = {telegram_id})
+            """)
+
+        return bool(cursor.fetchone()[0])
+
+    def is_user(self, telegram_id: int) -> bool:
+        cursor = self.connection.cursor()
+
+        cursor.execute(f"""
+            SELECT EXISTS(SELECT * FROM users
+            WHERE is_admin = False
             AND telegram_id = {telegram_id})
             """)
 

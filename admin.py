@@ -85,12 +85,11 @@ def admin_send_message(message):
 
         for user in db.get_telegram_id_list():
             msg = bot.send_message(
-                user, 'Привіт. Будь ласка оновіть дані вашого профілю',
-                reply_markup=markup)
+                user, constants.UDPATE_REQUEST, reply_markup=markup)
             bot.register_next_step_handler(msg, procces_if_update)
             # add update_date check and run update process if it need
 
-        bot.reply_to(message, 'Done')
+        bot.reply_to(message, 'Запити на оновлення даних надіслано')
 
     elif message.text == constants.CUSTOM_MESSAGE:
         msg = bot.send_message(

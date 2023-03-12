@@ -16,7 +16,7 @@ ADD_ADMIN = 'Додати адміна'
 REMOVE_ADMIN = 'Видалити адміна'
 ADD_COLLEGE = 'Додати коледж'
 SEND_MESSAGE = 'Надіслати повідомлення учасникам'
-UWC_MEMBERS = 'Список учасників'
+UWC_MEMBERS = 'Список студентів'
 COLLEGES = 'Список коледжів'
 ADMINS = 'Список адмінів'
 
@@ -24,12 +24,18 @@ REGISTRATION = 'Реєстрація'
 UPDATE_PROFILE = 'Оновлення даних'
 UWC_SMM = 'Соціальні мережі UWC'
 
-UPDATE_DATA = 'Оновлення даних'
+UPDATE_DATA = 'Запит на оновлення даних'
 CUSTOM_MESSAGE = 'Інше повідомлення'
 
 FILE_STUDENTS = 'uwc_students.csv'
 FILE_COLLEGES = 'uwc_colleges.csv'
 FILE_ADMINS = 'uwc_admins.csv'
+
+UDPATE_REQUEST = """
+    Привіт. Будь ласка оновіть дані вашого профілю, \
+    якщо у вас були зміни пошти, місця роботи або проживання. \
+    \nБажаєте змінити дані?
+"""
 
 YES = "Так"
 NO = "Ніт"
