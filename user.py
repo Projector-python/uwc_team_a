@@ -5,6 +5,7 @@ from user_registration import process_name
 from user_update import procces_if_update
 from utils import build_inline_markup, build_reply_markup
 from db import db
+from telebot import types
 
 
 def user_panel_processing(message):
@@ -12,11 +13,22 @@ def user_panel_processing(message):
         if db.is_user(message.from_user.id):
             bot.reply_to(
                 message, "Ви вже реєструвались, спробуйте оновити свої дані")
+
         else:
             student = Student()
             msg = bot.reply_to(
                 message, "Привіт, ми почали реєстрацію. Напиши своє імʼя:")
             bot.register_next_step_handler(msg, process_name, student=student)
+    
+    elif message.text == constants.PROFILE:
+        if db.is_user(message.from_user.id):
+            student = db.get_student_info(message.from_user.id)
+            bot.reply_to(message, student.overview)
+
+        else:
+            msg = bot.reply_to(
+                message, constants.REGISTRATION_ASK)
+            bot.register_next_step_handler(msg, user_panel_processing)
 
     elif message.text == constants.UPDATE_PROFILE:
         markup = build_reply_markup(constants.YES_NO)
