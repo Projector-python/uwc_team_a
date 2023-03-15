@@ -5,7 +5,6 @@ from user_registration import process_name
 from user_update import procces_if_update
 from utils import build_inline_markup, build_reply_markup
 from db import db
-from telebot import types
 
 
 def user_panel_processing(message):
@@ -19,7 +18,7 @@ def user_panel_processing(message):
             msg = bot.reply_to(
                 message, "Привіт, ми почали реєстрацію. Напиши своє імʼя:")
             bot.register_next_step_handler(msg, process_name, student=student)
-    
+
     elif message.text == constants.PROFILE:
         if db.is_user(message.from_user.id):
             student = db.get_student_info(message.from_user.id)
