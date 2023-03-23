@@ -43,8 +43,14 @@ def ask_college(message, student: Student):
 
 
 def process_college(message, student: Student):
-    student.college = message.text
-    ask_year_start(message, student=student)
+    if message.text in db.get_college_list():
+        student.college = message.text
+        ask_year_start(message, student=student)
+    else:
+        bot.send_message(
+            message.chat.id, "Будь ласка оберіть коледж зі списку")
+        bot.register_next_step_handler(
+            message, process_college, student=student)
 
 
 def ask_year_start(message, student: Student):
@@ -133,8 +139,15 @@ def ask_agree_share_pers_info(message, student: Student):
 
 
 def process_agree_share_pers_info(message, student: Student):
-    student.agree_share_pers_info = message.text
-    ask_live_place(message, student=student)
+    if message.text in YES_NO:
+        student.agree_share_pers_info = message.text
+        ask_live_place(message, student=student)
+
+    else:
+        bot.send_message(
+            message.chat.id, "Будь ласка оберіть відповідь зі списку")
+        bot.register_next_step_handler(
+            message, process_agree_share_pers_info, student=student)
 
 
 def ask_live_place(message, student: Student):
