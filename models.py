@@ -33,13 +33,11 @@ class Student:
 
     @property
     def overview(self):
-        return f"""
-        Профіль студента: \n
+        return f"""Профіль студента: \n
         \nМене звати {self.name} {self.family_name} \
         \nКоледж  {self.college}, {self.year_start}-{self.year_finish} \
         \nПошта  {self.email} \
-        \nСоц-мережа  {self.social_network}, \
-        найркаще комунікувати {self.best_communication} \
+        \nСоц-мережа  {self.social_network}, найкраще комунікувати {self.best_communication} \
         \nЖиву в {self.live_place} \
         \nУніверситет {self.university} \
         \nРобота {self.work} \

@@ -19,8 +19,7 @@ def user_panel_processing(message):
 
         else:
             student = Student()
-            msg = bot.reply_to(
-                message, "Привіт, ми почали реєстрацію. Напиши своє імʼя:")
+            msg = bot.send_message(message.chat.id, "Привіт, ми почали реєстрацію (всього 12 запитань). Після неї у вас буде можливість змінити дані. \n1/12. Напиши своє ім’я та прізвище. Наприклад, Олеся Величко.")
             bot.register_next_step_handler(msg, process_name, student=student)
 
     elif message.text == constants.PROFILE:
@@ -42,8 +41,7 @@ def user_panel_processing(message):
             markup = build_reply_markup(constants.YES_NO)
 
             msg = bot.reply_to(
-                message, f"""Ви хочете оновити свої дані? \n
-                {db.get_student_info(message.from_user.id).overview}""",
+                message, f"""Ви хочете оновити свої дані?\n{db.get_student_info(message.from_user.id).overview}""",
                 reply_markup=markup
             )
             bot.register_next_step_handler(
@@ -52,6 +50,7 @@ def user_panel_processing(message):
         elif db.is_admin(message.from_user.id):
             bot.reply_to(
                 message, "Ви є адміністратором телеграм бота")
+            return
 
         else:
             msg = bot.reply_to(
