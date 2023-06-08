@@ -1,6 +1,6 @@
 import telebot
 
-# TOKEN = 
+TOKEN
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -11,10 +11,12 @@ BOT_INFO = """Цей бот створений для простішої ком�
     дані в актуальному стані.
     """
 
+CANCEL = 'Назад'
+
 ADD_ADMIN = 'Додати адміна'
 REMOVE_ADMIN = 'Видалити адміна'
 ADD_COLLEGE = 'Додати коледж'
-SEND_MESSAGE = 'Надіслати повідомлення учасникам'
+SEND_MESSAGE = 'Повідомлення учасникам'
 UWC_MEMBERS = 'Список студентів'
 COLLEGES = 'Список коледжів'
 ADMINS = 'Список адмінів'
@@ -23,6 +25,7 @@ REGISTRATION = 'Реєстрація'
 PROFILE = 'Профіль студента'
 UPDATE_PROFILE = 'Оновлення даних'
 UWC_SMM = 'Соціальні мережі UWC'
+ADMIN_PANEL = 'Панель адміністратора'
 
 UPDATE_DATA = 'Запит на оновлення даних'
 CUSTOM_MESSAGE = 'Інше повідомлення'
@@ -65,12 +68,14 @@ USER_PANEL_BUTTONS = (
     REGISTRATION,
     PROFILE,
     UPDATE_PROFILE,
-    UWC_SMM
+    UWC_SMM,
+    ADMIN_PANEL
 )
 
 SEND_MESSAGE_BUTTONS = (
     UPDATE_DATA,
-    CUSTOM_MESSAGE
+    CUSTOM_MESSAGE,
+    CANCEL
 )
 
 SOCIAL_BUTTONS = {

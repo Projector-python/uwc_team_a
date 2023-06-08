@@ -5,16 +5,18 @@ from models import Student
 
 
 def build_reply_markup(
-        button_list: tuple[str]) -> types.ReplyKeyboardMarkup:
+        button_list: tuple[str],
+        one_time_keyboard=True) -> types.ReplyKeyboardMarkup:
 
     markup = types.ReplyKeyboardMarkup(
-        one_time_keyboard=True,
+        one_time_keyboard=one_time_keyboard,
         resize_keyboard=True,
         row_width=2
     )
 
-    for button in button_list:
-        markup.add(button)
+    buttons = [types.KeyboardButton(i) for i in button_list]
+
+    markup.add(*buttons)
 
     return markup
 
