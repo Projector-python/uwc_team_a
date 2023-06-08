@@ -2,7 +2,6 @@ from telebot.types import Message
 import constants
 import user
 from constants import bot
-from db import db
 from utils import build_reply_markup
 
 
