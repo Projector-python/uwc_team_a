@@ -1,16 +1,15 @@
 import telebot
 
-TOKEN = '6172665923:AAFRPHtt2EIW0LLQYpGhk5l3F6bN3-2ZJAs'
+# TOKEN = 
 
 bot = telebot.TeleBot(TOKEN)
 
 DATABASE = 'uwc_database.db'
 
-BOT_INFO = """
-    Цей бот створений для простішої комунікіції з \
+BOT_INFO = """Цей бот створений для простішої комунікіції з \
     випускниками та студентами UWC. Він допоможе підтримувати \
     дані в актуальному стані.
-"""
+    """
 
 ADD_ADMIN = 'Додати адміна'
 REMOVE_ADMIN = 'Видалити адміна'
@@ -45,7 +44,7 @@ REGISTRATION_ASK = """
 """
 
 YES = "Так"
-NO = "Ніт"
+NO = "Ні"
 
 YES_NO = (
     YES,
