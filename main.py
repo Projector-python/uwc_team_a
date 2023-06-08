@@ -1,5 +1,4 @@
 from telebot.types import Message
-import admin
 import constants
 import user
 from constants import bot

@@ -12,7 +12,8 @@ def admin_panel_processing(message):
         markup = build_reply_markup([constants.CANCEL])
 
         msg = bot.send_message(
-            message.chat.id, "Введіть ім'я нового адміна:", reply_markup=markup)
+            message.chat.id, "Введіть ім'я нового адміна:",
+            reply_markup=markup)
         bot.register_next_step_handler(msg, get_admin_id)
 
     elif message.text == constants.REMOVE_ADMIN:
@@ -56,7 +57,8 @@ def get_admin_id(message):
                 constants.ADMIN_PANEL_BUTTONS, one_time_keyboard=False)
 
             msg = bot.send_message(
-                message.chat.id, "Ви знаходитесь в адмін панелі!", reply_markup=markup)
+                message.chat.id, "Ви знаходитесь в адмін панелі!",
+                reply_markup=markup)
 
             bot.register_next_step_handler(msg, admin_panel_processing)
 
@@ -81,7 +83,8 @@ def del_admin_from_db(message):
                 constants.ADMIN_PANEL_BUTTONS, one_time_keyboard=False)
 
             msg = bot.send_message(
-                message.chat.id, "Ви знаходитесь в адмін панелі!", reply_markup=markup)
+                message.chat.id, "Ви знаходитесь в адмін панелі!",
+                reply_markup=markup)
 
             bot.register_next_step_handler(msg, admin_panel_processing)
 
@@ -100,7 +103,8 @@ def process_college(message):
                 constants.ADMIN_PANEL_BUTTONS, one_time_keyboard=False)
 
             msg = bot.send_message(
-                message.chat.id, "Ви знаходитесь в адмін панелі!", reply_markup=markup)
+                message.chat.id, "Ви знаходитесь в адмін панелі!",
+                reply_markup=markup)
 
             bot.register_next_step_handler(msg, admin_panel_processing)
 
