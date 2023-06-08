@@ -11,7 +11,8 @@ from utils import build_reply_markup
 def send_welcome(message: Message):
     if message.text == '/start':
         mess = f'Привіт, <b>{message.from_user.first_name}</b>'
-        markup = build_reply_markup(constants.USER_PANEL_BUTTONS)
+        markup = build_reply_markup(
+            constants.USER_PANEL_BUTTONS, one_time_keyboard=False)
 
         msg = bot.send_message(message.chat.id, mess,
                                parse_mode='html', reply_markup=markup)
@@ -19,17 +20,6 @@ def send_welcome(message: Message):
 
     elif message.text == '/help':
         bot.send_message(message.chat.id, constants.BOT_INFO)
-
-
-@bot.message_handler(commands=['admin'])
-def admin_panel(message: Message):
-    if db.is_admin(message.from_user.id):
-        markup = build_reply_markup(constants.ADMIN_PANEL_BUTTONS)
-
-        msg = bot.send_message(
-            message.chat.id, "Привіт. Ви знаходитесь в адмін панелі!",
-            reply_markup=markup)
-        bot.register_next_step_handler(msg, admin.admin_panel_processing)
 
 
 @bot.message_handler()
