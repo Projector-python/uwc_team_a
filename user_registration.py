@@ -36,7 +36,7 @@ def process_name(message, student: Student):
 def ask_college(message, student: Student):
     markup = build_reply_markup(db.get_college_list())
     msg = bot.send_message(message.chat.id,
-                            "2/12. В якому коледжі UWC ти навчався(-лася) (Виберіть зі списку)?",
+        "2/12. В якому коледжі UWC ти навчався(-лася) (Виберіть зі списку)?",
         reply_markup=markup)
     bot.register_next_step_handler(msg, process_college, student=student)
 
@@ -151,8 +151,11 @@ def process_agree_share_pers_info(message, student: Student):
 
 
 def ask_live_place(message, student: Student):
-    msg = bot.send_message(
-        message.chat.id, "9/12. В якій країні та місті ти проживаєш наразі (або плануєш проживати, якщо наразі в стану переїзду)")
+    message_text = (
+        "9/12. В якій країні та місті ти проживаєш наразі"
+        "(або плануєш проживати, якщо наразі в стану переїзду)"
+    )
+    msg = bot.send_message(message.chat.id, message_text)
     bot.register_next_step_handler(msg, process_live_place, student=student)
 
 
@@ -162,9 +165,12 @@ def process_live_place(message, student: Student):
 
 
 def ask_university(message, student: Student):
-    msg = bot.send_message(
-        message.chat.id, """
-        10/12. В якому університеті ти вчився(-лась)? Якщо декілька, то напиши через кому. Наприклад, \"Київський національний університет імені Тараса Шевченка\"""")
+    message_text = (
+        "10/12. В якому університеті ти вчився(-лась)? Якщо декілька, "
+        "то напиши через кому. Наприклад, "
+        "\"Київський національний університет імені Тараса Шевченка\""
+    )
+    msg = bot.send_message(message.chat.id, message_text)
     bot.register_next_step_handler(msg, process_university, student=student)
 
 

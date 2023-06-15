@@ -24,10 +24,12 @@ def user_panel_processing(message):
 
         else:
             student = Student()
-            msg = bot.send_message(
-                message.chat.id, """Привіт, ми почали реєстрацію (всього 12 запитань).
-                    Після неї у вас буде можливість змінити дані. \n1/12.
-                    Напиши своє ім’я та прізвище. Наприклад, Олеся Величко.""")
+            message_text = (
+                "Привіт, ми почали реєстрацію (всього 12 запитань). "
+                "Після неї у вас буде можливість змінити дані. \n"
+                "1/12. Напиши своє ім’я та прізвище. Наприклад, Олеся Величко."
+            )
+            msg = bot.send_message(message.chat.id, message_text)
             bot.register_next_step_handler(msg, process_name, student=student)
 
     elif message.text == constants.PROFILE:

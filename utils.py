@@ -36,7 +36,7 @@ def build_inline_markup(
 
 
 def check_str(message):
-    regex = (r"^[A-Za-zА-ЩЬЮЯҐЄІЇа-щьюяґєії'-]+$")
+    regex = (r"^[A-Za-zА-ЩЬЮЯҐЄІЇа-щьюяґєії' -]+$")
     pattern = re.compile(regex)
     match = pattern.search(message) is not None
     return match
