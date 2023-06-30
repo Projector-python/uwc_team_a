@@ -128,3 +128,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# db
+uwc_database.db
+
+# other
+.DS_Store

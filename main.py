@@ -25,5 +25,10 @@ def message_reply(message: Message):
     if message.text.upper() == 'ID':
         bot.send_message(message.chat.id, message.from_user.id)
 
+    markup = build_reply_markup(
+            constants.USER_PANEL_BUTTONS, one_time_keyboard=False)
+    
+    bot.register_next_step_handler(message, user.user_panel_processing)
+
 
 bot.infinity_polling()

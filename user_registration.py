@@ -1,3 +1,4 @@
+import constants
 from constants import bot, YES_NO
 from db import db
 from models import Student
@@ -36,8 +37,8 @@ def process_name(message, student: Student):
 def ask_college(message, student: Student):
     markup = build_reply_markup(db.get_college_list())
     msg = bot.send_message(message.chat.id,
-        "2/12. В якому коледжі UWC ти навчався(-лася) (Виберіть зі списку)?",
-        reply_markup=markup)
+                           "2/12. В якому коледжі UWC ти навчався(-лася) (Виберіть зі списку)?",
+                           reply_markup=markup)
     bot.register_next_step_handler(msg, process_college, student=student)
 
 
@@ -198,7 +199,13 @@ def ask_interests(message, student: Student):
 
 def process_interests(message, student: Student):
     student.interests = message.text
-    bot.send_message(message.chat.id, "Дякую за реєстрацію!")
+
+    markup = build_reply_markup(
+        constants.USER_PANEL_BUTTONS, one_time_keyboard=False)
+
+    bot.send_message(message.chat.id, "Дякую за реєстрацію!",
+                     reply_markup=markup)
+
     student.telegram_id = message.from_user.id
     db.add_user_to_db(student)
     bot.send_message(message.chat.id, student.overview)

@@ -130,4 +130,8 @@ def procces_change_university(message, student: Student):
 
 def save_info(message, student: Student):
     db.update_user_in_db(student)
-    bot.send_message(message.chat.id, "Дякую, ваші дані оновлено!")
+
+    markup = build_reply_markup(
+        constants.USER_PANEL_BUTTONS, one_time_keyboard=False)
+    bot.send_message(
+        message.chat.id, "Дякую, ваші дані оновлено!", reply_markup=markup)
